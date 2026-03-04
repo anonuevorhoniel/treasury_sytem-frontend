@@ -13,7 +13,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { Edit, Ellipsis, Filter, Plus, Printer, Search, X } from "lucide-react";
+import {
+  Edit,
+  Ellipsis,
+  Filter,
+  Plus,
+  Printer,
+  Search,
+  SearchIcon,
+  X,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
@@ -31,6 +40,7 @@ import { Label } from "@/components/ui/label";
 import ShowPayable from "./(show)/ShowPayable";
 import { Card } from "@/components/ui/card";
 import { useTitle } from "@/global/useTitle";
+import { ButtonGroup } from "@/components/ui/button-group";
 
 export default function Page() {
   const { setTitle } = useTitle();
@@ -113,14 +123,57 @@ export default function Page() {
   return (
     <>
       <title>TS | Payables</title>
-      <div>
+      <div className="space-y-4">
         <div className="sm:flex justify-between">
-          <Link href={"/payables/create"}>
-            <Button>
-              <Plus /> Add Payable
+          <div className="flex gap-3">
+            <Link href={"/payables/create"}>
+              <Button>
+                <Plus /> Add Payable
+              </Button>
+            </Link>
+            <Button variant={"outline"} onClick={() => setOpen(true)}>
+              <Printer /> Print
             </Button>
-          </Link>
-          <div className="mt-2 sm:mt-0">
+          </div>
+          <div className="flex gap-2">
+            <div className="sm:flex">
+              <div className="sm:flex gap-5 space-y-2 sm:space-y-0">
+                <div className="space-y-2">
+                  <Select value={type} onValueChange={setType}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Accounts Payable">
+                        Accounts Payable
+                      </SelectItem>
+                      <SelectItem value="Non-Accounts Payable">
+                        Non-Accounts Payable
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                {/* <div className="space-y-2">
+                  <Label>Select Month</Label>
+                  <div className="flex gap-2 items-center">
+                    <Input
+                      type="month"
+                      value={month ?? ""}
+                      onInput={(e: any) => setMonth(e.target.value)}
+                    />
+                    <Button onClick={() => setMonth("")}>Clear</Button>
+                  </div>
+                </div> */}
+                <ButtonGroup className="min-w-50">
+                  <Input
+                    type="month"
+                    value={month ?? ""}
+                    onInput={(e: any) => setMonth(e.target.value)}
+                  />
+                  <Button onClick={() => setMonth("")}>Clear</Button>
+                </ButtonGroup>
+              </div>
+            </div>
             <SearchBar
               search={search}
               setSearch={setSearch}
@@ -128,50 +181,7 @@ export default function Page() {
             />
           </div>
         </div>
-        <Card className="px-6 py-0 my-3">
-          <div className="sm:flex justify-between items-center p-3 rounded-md space-y-2 sm:space-y-0 ">
-            <div className="sm:flex gap-5 space-y-2 sm:space-y-0">
-              <div className="hidden sm:flex gap-2 items-center opacity-70">
-                <h1>Filters</h1> <Filter strokeWidth={1} size={18} />{" "}
-                <Separator orientation="vertical" className="bg-primary" />
-              </div>
-              <div className="space-y-2">
-                <Label>Type</Label>
-                <Select value={type} onValueChange={setType}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Accounts Payable">
-                      Accounts Payable
-                    </SelectItem>
-                    <SelectItem value="Non-Accounts Payable">
-                      Non-Accounts Payable
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label>Select Month</Label>
-                <div className="flex gap-1">
-                  <Input
-                    type="month"
-                    value={month ?? ""}
-                    onInput={(e: any) => setMonth(e.target.value)}
-                  />
-                  <Button onClick={() => setMonth("")}>
-                    <X />
-                  </Button>
-                </div>
-              </div>
-            </div>
-            <div>
-              <Button variant={"outline"} onClick={() => setOpen(true)}>
-                <Printer />
-              </Button>
-            </div>
-          </div>
-        </Card>
+
         <div className="space-y-2">
           <DataTable
             columns={columns}

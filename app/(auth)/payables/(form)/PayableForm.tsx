@@ -19,18 +19,19 @@ import { Controller } from "react-hook-form";
 import ButtonLoad from "@/components/custom/button-load";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import ax from "@/axios";
+import OfficeSelect from "@/components/custom/office-select";
 
 export default function PayableForm({
   form,
   handleSubmit,
   isPending,
 }: formType) {
-  const {data, isSuccess, isError, error} = useQuery({
-    queryKey: ['offices'],
-    queryFn: async() => await ax.get('/offices'),
+  const { data, isSuccess, isError, error } = useQuery({
+    queryKey: ["offices"],
+    queryFn: async () => await ax.get("/offices"),
     refetchOnWindowFocus: false,
     placeholderData: keepPreviousData,
-  })
+  });
   const { watch, control } = form;
   const ps = watch("ps") ?? 0;
   const psDeduction = watch("ps_deduction") ?? 0;
@@ -88,15 +89,10 @@ export default function PayableForm({
             name="date"
             type="date"
           />
-          <FormFieldComponent
-            form={form}
-            label="Office"
-            name="office_id"
-            type="select"
-            selectItems={data?.data?.data?.map((item: any) => (
-              <SelectItem key={item.id} value={String(item.id)}>{item.name}</SelectItem>
-            ))}
-          />
+          <div className="space-y-2 mt-2">
+            <Label>Office</Label>
+            <OfficeSelect form={form} name="office_id" />
+          </div>
         </div>
         <FormFieldComponent
           form={form}
@@ -152,7 +148,6 @@ export default function PayableForm({
                     <InputGroup>
                       <InputGroupInput
                         value={field.value ?? ""}
-                      
                         placeholder="Deduction"
                         step={"any"}
                         type="number"
@@ -200,7 +195,6 @@ export default function PayableForm({
                     <InputGroup>
                       <InputGroupInput
                         value={field.value ?? ""}
-                      
                         placeholder="MOOE"
                         type="number"
                         onInput={field.onChange}
@@ -227,7 +221,6 @@ export default function PayableForm({
                     <InputGroup>
                       <InputGroupInput
                         value={field.value ?? ""}
-                      
                         placeholder="Deduction"
                         step={"any"}
                         type="number"
@@ -275,7 +268,6 @@ export default function PayableForm({
                     <InputGroup>
                       <InputGroupInput
                         value={field.value ?? ""}
-                      
                         placeholder="CO"
                         step={"any"}
                         type="number"
@@ -302,7 +294,6 @@ export default function PayableForm({
                     <InputGroup>
                       <InputGroupInput
                         value={field.value ?? ""}
-                      
                         placeholder="Deduction"
                         step={"any"}
                         type="number"

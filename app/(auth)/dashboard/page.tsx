@@ -29,7 +29,7 @@ export default function Page() {
   const [year, setYear] = useState(yearValue);
   const { data, isSuccess, isError, error, isFetching } = useQuery({
     queryKey: ["dashboard", year],
-    queryFn: async () => await ax.get("/dashboard", {params: {year}}),
+    queryFn: async () => await ax.get("/dashboard", { params: { year } }),
     refetchOnWindowFocus: false,
     placeholderData: keepPreviousData,
   });
@@ -100,6 +100,7 @@ export default function Page() {
             <div>
               <InputGroup>
                 <InputGroupInput
+                  readOnly
                   placeholder="Enter Year"
                   value={year ?? yearValue}
                   onChange={() => {}}

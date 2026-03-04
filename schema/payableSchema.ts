@@ -45,7 +45,8 @@ export const payableSchema = z.object({
       error: "Capital Outlay Deduction cannot have negative values",
     })
     .optional(),
-  office_id: z
+  office_id: z.coerce
     .string({ error: "Office is required" })
-    .min(1, { error: "Office is required" }),
+    .min(1, { error: "Office is required" })
+    .refine((val) => val != "undefined"),
 });

@@ -20,8 +20,8 @@ export default function Page() {
   const [page, setPage] = useState(1);
   const { open, setOpen } = useOffice();
   const { data, isSuccess, isError, error, isFetching } = useQuery({
-    queryKey: ["officess"],
-    queryFn: async () => await ax.get("/offices"),
+    queryKey: ["offices", page],
+    queryFn: async () => await ax.get("/offices", { params: { page } }),
     refetchOnWindowFocus: false,
     placeholderData: keepPreviousData,
   });
@@ -54,7 +54,7 @@ export default function Page() {
   ];
   return (
     <>
-      <div>
+      <div className="space-y-2">
         <Button onClick={() => setOpen(true)}>
           <Plus /> Add Office
         </Button>
