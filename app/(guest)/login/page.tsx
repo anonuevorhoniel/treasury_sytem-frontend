@@ -1,28 +1,28 @@
 "use client";
 
-import { GalleryVerticalEnd } from "lucide-react";
-
 import { LoginForm } from "@/components/login-form";
 import logo from "../../../public/logo.png";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import ax from "@/axios";
-import { toast } from "sonner";
-import { Spinner } from "@/components/ui/shadcn-io/spinner";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/global/useUser";
 
 export default function LoginPage() {
   const form = useForm();
   const router = useRouter();
+  const { setUser } = useUser();
   const handleSubmit = (data: any) => {
     authenticate.mutate(data);
   };
   const authenticate = useMutation({
     mutationFn: async (data: any) => await ax.post("/authenticate", data),
-    onError: (error) => console.log(error),
-    onSuccess: () => {
+    onError: (error: any) => console.log(error?.response),
+    onSuccess: (data) => {
       router.push("/dashboard");
+      console.log(data.data);
+      setUser(data.data?.user);
     },
   });
   return (
