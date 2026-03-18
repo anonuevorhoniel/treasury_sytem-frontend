@@ -66,7 +66,7 @@ export default function Page() {
           <div className="space-y-2">
             <h1 className="opacity-70">Overall Payables </h1>
             <h1 className="text-xl font-bold">
-              {isFetching ? <Spinner /> : data?.data?.overall}
+              {isFetching ? <Spinner size={28} /> : data?.data?.overall}
             </h1>
           </div>
         </Card>
@@ -74,7 +74,11 @@ export default function Page() {
           <div className="space-y-2">
             <h1 className="opacity-70">Accounts Payable </h1>
             <h1 className="text-xl font-bold">
-              {isFetching ? <Spinner /> : data?.data?.accountPayableCount}
+              {isFetching ? (
+                <Spinner size={28} />
+              ) : (
+                data?.data?.accountPayableCount
+              )}
             </h1>
           </div>
         </Card>
@@ -82,7 +86,11 @@ export default function Page() {
           <div className="space-y-2">
             <h1 className="opacity-70">Non-Accounts Payable </h1>
             <h1 className="text-xl font-bold">
-              {isFetching ? <Spinner /> : data?.data?.nonAccountPayableCount}
+              {isFetching ? (
+                <Spinner size={28} />
+              ) : (
+                data?.data?.nonAccountPayableCount
+              )}
             </h1>
           </div>
         </Card>

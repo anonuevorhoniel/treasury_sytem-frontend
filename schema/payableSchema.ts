@@ -15,36 +15,19 @@ export const payableSchema = z.object({
   particulars: z
     .string({ error: "Paticulars is required" })
     .min(1, { error: "Paticulars is required" }),
-  ps: z.coerce
-    .number({ error: "Personal Services is required" })
-    .min(1, { error: "Personal Services must not be below 0 or 0" })
-    .optional(),
-  ps_deduction: z.coerce
-    .number({ error: "Personal Services Deduction is required" })
+  fund_type: z.string("Fund Type is required").min(1, "Fund type is required"),
+  value: z.coerce
+    .string({ error: "Value is required" })
+    .min(1, { error: "Value must not be below 0 or 0" })
+    .refine((val) => val != "undefined")
+    .refine((val) => Number(val) > 0),
+  deduction: z.coerce
+    .string({ error: "Deduction Deduction is required" })
     .min(0, {
-      error: "Personal Services Deduction cannot have negative values",
+      error: "Deduction Deduction cannot have negative values",
     })
-    .optional(),
-  mooe: z.coerce
-    .number({ error: "MOOE is required" })
-    .min(1, { error: "MOOE must not be below 0 or 0" })
-    .optional(),
-  mooe_deduction: z.coerce
-    .number({ error: "MOOE Deduction is required" })
-    .min(0, {
-      error: "MOOE Deduction cannot have negative values",
-    })
-    .optional(),
-  co: z.coerce
-    .number({ error: "Capital Outlay is required" })
-    .min(1, { error: "Capital Outlay must not be below 0 or 0" })
-    .optional(),
-  co_deduction: z.coerce
-    .number({ error: "Capital Outlay Deduction is required" })
-    .min(0, {
-      error: "Capital Outlay Deduction cannot have negative values",
-    })
-    .optional(),
+    .refine((val) => val != "undefined")
+    .refine((val) => Number(val) > 0),
   office_id: z.coerce
     .string({ error: "Office is required" })
     .min(1, { error: "Office is required" })

@@ -71,6 +71,10 @@ export default function Page() {
       header: "Type",
     },
     {
+      header: "Fund Type",
+      cell: (item: any) => item.fund_type.toUpperCase(),
+    },
+    {
       accessKey: "date",
       header: "Date",
     },

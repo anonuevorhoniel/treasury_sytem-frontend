@@ -40,16 +40,16 @@ export default function Page() {
       qclient.invalidateQueries({
         queryKey: ["payables"],
       });
-       qclient.invalidateQueries({
+      qclient.invalidateQueries({
         queryKey: ["dashboard"],
       });
     },
-    onError: (error) => console.log(error),
+    onError: (error) => console.log(error?.response),
   });
 
   return (
     <>
-    <title>TS | Payables</title>
+      <title>TS | Payables</title>
       <div>
         <Button variant={"ghost"} onClick={() => router.back()}>
           <ChevronLeft /> Back
