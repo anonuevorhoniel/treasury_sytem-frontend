@@ -44,7 +44,7 @@ export default function Page() {
         queryKey: ["dashboard"],
       });
     },
-    onError: (error) => console.log(error?.response),
+    onError: (error: any) => console.log(error?.response),
   });
 
   return (
