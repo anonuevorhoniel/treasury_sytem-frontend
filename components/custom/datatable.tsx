@@ -133,7 +133,7 @@ export default function DataTable({
               <Label className="font-thin ">
                 Showing {pagination?.total == 0 ? 0 : pagination?.offset + 1} to{" "}
                 {pagination?.offset + pagination?.total_current} of{" "}
-                {pagination?.total} data
+                {pagination?.total?.toLocaleString("en")} data
               </Label>
             </div>
             <div>

@@ -15,10 +15,11 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import EditOffice from "./(edit)/EditOffice";
 
 export default function Page() {
   const [page, setPage] = useState(1);
-  const { open, setOpen } = useOffice();
+  const { open, setOpen, setOpenEdit, setSelectedItem } = useOffice();
   const { data, isSuccess, isError, error, isFetching } = useQuery({
     queryKey: ["offices", page],
     queryFn: async () => await ax.get("/offices", { params: { page } }),
@@ -41,7 +42,12 @@ export default function Page() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                setOpenEdit(true);
+                setSelectedItem(item);
+              }}
+            >
               Edit
               <DropdownMenuShortcut>
                 <Edit />
@@ -55,7 +61,11 @@ export default function Page() {
   return (
     <>
       <div className="space-y-2">
-        <Button onClick={() => setOpen(true)}>
+        <Button
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
           <Plus /> Add Office
         </Button>
         <DataTable
@@ -68,6 +78,7 @@ export default function Page() {
         />
       </div>
       <CreateOffice />
+      <EditOffice />
     </>
   );
 }

@@ -4,6 +4,7 @@ const hostname =
   typeof window != "undefined" ? window.location.hostname : "localhost";
 const ax = axios.create({
   baseURL: `http://${hostname}:80/api`,
+  // baseURL: `https://sapphire-wheel-linear-neo.trycloudflare.com/api`,
   withCredentials: true,
 });
 

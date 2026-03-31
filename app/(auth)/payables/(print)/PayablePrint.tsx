@@ -14,13 +14,11 @@ export default function PayablePrint() {
   };
   const print = useMutation({
     mutationFn: async (data) =>
-      await ax.post("/payables/print", data, 
-        { responseType: "blob" }
-    ),
+      await ax.post("/payables/print", data, { responseType: "blob" }),
     onSuccess: (data) => {
       useDownloadLink({ data: data?.data, name: "download" });
     },
-    onError: (error) => console.log(error),
+    onError: (error: any) => console.log(error),
   });
   return (
     <ResponsiveDialog open={open} setOpen={setOpen} title="Print Payables">
