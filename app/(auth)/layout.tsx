@@ -19,18 +19,16 @@ import {
 } from "@/components/ui/sidebar";
 import { useTitle } from "@/global/useTitle";
 import { useUser } from "@/global/useUser";
-import {
-  keepPreviousData,
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { Fragment, ReactNode, useEffect, useState } from "react";
 import { Toaster } from "sonner";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const { title } = useTitle();
+  useEffect(() => {
+    document.title = `TS | ${title.name}`;
+  }, [title.name]);
   const { user, setUser } = useUser();
   const {
     data: userData,

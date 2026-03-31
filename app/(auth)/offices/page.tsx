@@ -7,7 +7,7 @@ import { useOffice } from "@/global/useOffice";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import ax from "@/axios";
 import DataTable from "@/components/custom/datatable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,11 +16,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import EditOffice from "./(edit)/EditOffice";
+import { useTitle } from "@/global/useTitle";
 
 export default function Page() {
+  const { setTitle } = useTitle();
+  useEffect(() => {
+    setTitle({
+      name: "Offices",
+      link: "/offices ",
+    });
+  }, []);
   const [page, setPage] = useState(1);
-  const { open, setOpen, setOpenEdit, setSelectedItem } = useOffice();
-  const { data, isSuccess, isError, error, isFetching } = useQuery({
+  const { setOpen, setOpenEdit, setSelectedItem } = useOffice();
+  const { data, isSuccess, isFetching } = useQuery({
     queryKey: ["offices", page],
     queryFn: async () => await ax.get("/offices", { params: { page } }),
     refetchOnWindowFocus: false,

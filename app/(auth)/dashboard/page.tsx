@@ -59,7 +59,6 @@ export default function Page() {
 
   return (
     <>
-      <title>TS | Dashboard</title>
       <h1 className="text-2xl font-bold">Dashboard</h1>
       <div className="grid grid-cols-3 gap-5">
         <Card className="px-6">

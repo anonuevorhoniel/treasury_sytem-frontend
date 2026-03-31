@@ -26,7 +26,6 @@ export default function CreateOffice() {
   });
   return (
     <>
-      <title>PS | Office</title>
       <ResponsiveDialog open={open} setOpen={setOpen} title="Create Office">
         <OfficeForm
           form={form}

@@ -126,7 +126,6 @@ export default function Page() {
   ];
   return (
     <>
-      <title>TS | Payables</title>
       <div className="space-y-4">
         <div className="sm:flex justify-between">
           <div className="flex gap-3">
